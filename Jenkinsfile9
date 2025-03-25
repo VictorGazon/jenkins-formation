@@ -10,7 +10,7 @@ pipeline {
             steps {
                 echo 'cloning project codebase '
                 git (url : 'https://github.com/VictorGazon/jenkins-formation/edit/master/maven-project.git', 
-                branch : 'master', credentialsId: 'credGitHub')
+                branch : 'master', credentialsId: 'cred4GitHub')
             }
         }
     stage('Compiling') {
