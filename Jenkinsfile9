@@ -1,16 +1,16 @@
 pipeline {
-    agent {label "jdk17"}
+    agent any
     parameters {
     string(name: 'VERSION', defaultValue : '1.0.0', description : 'Version du produit')
     choice(name: 'ENVIRONMENT', choices: ['dev', 'staging', 'production'], description: 'Choisissez l\'environnement')
     }   
 
     stages {
-        stage('clone codebase') {
+        stage('checkout codebase') {
             steps {
                 echo 'cloning project codebase '
-                git (url : 'https://github.com/tahararib/maven-project.git', 
-                branch : 'master', credentialsId: 'cred4github')
+                git (url : 'https://github.com/VictorGazon/jenkins-formation/edit/master/maven-project.git', 
+                branch : 'master', credentialsId: 'credGitHub')
             }
         }
     stage('Compiling') {
@@ -32,7 +32,7 @@ pipeline {
     stage('Sonar Analysis') {
             steps {
                 echo 'Run sonarQube Analysis'
-                withSonarQubeEnv(installationName : 'sonarServer' , credentialsId : 'cred4sonar') 
+                withSonarQubeEnv(installationName : 'sonarServer' , credentialsId : 'token4sonar') 
                 {
                     sh "mvn clean package sonar:sonar"
                     }
